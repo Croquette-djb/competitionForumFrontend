@@ -74,7 +74,7 @@
                   <input
                     type="text"
                     class="tt-search__input"
-                    placeholder="Search"
+                    placeholder="搜索"
                   />
                   <button class="tt-search__btn" type="submit">
                     <svg class="tt-icon">
@@ -93,8 +93,8 @@
           </div>
           <div class="col-auto ml-auto">
             <div class="tt-account-btn">
-              <a href="page-login.html" class="btn btn-primary">Log in</a>
-              <a href="page-signup.html" class="btn btn-secondary">Sign up</a>
+              <router-link to="/login" class="btn btn-primary">登录</router-link>
+              <router-link to="/signup" class="btn btn-secondary">注册</router-link>
             </div>
           </div>
         </div>

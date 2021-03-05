@@ -4,10 +4,14 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <Navigator />
+    <Navigator v-if="isNavigatorVisible" />
     <router-view/>
     <!-- <a href="javascript:void(0)" class="tt-btn-create-topic" @click="onCreateBtnClick"> -->
-    <router-link to="/create" class="tt-btn-create-topic" active-class="hide">
+    <router-link
+      v-if="isNavigatorVisible"
+      to="/create" active-class="hide"
+      class="tt-btn-create-topic"
+    >
       <span class="tt-icon">
         <svg>
           <use xlink:href="#icon-create_new"></use>
@@ -19,6 +23,7 @@
 
 <script>
 import Navigator from '@/components/Navigator/Navigator.vue';
+const hideNavRouteName = ['Login', 'Signup'];
 
 export default {
   components: {
@@ -26,8 +31,13 @@ export default {
   },
   data: () => {
     return {
-
+      
     };
+  },
+  computed: {
+    isNavigatorVisible() {
+      return !hideNavRouteName.includes(this.$route.name);
+    }
   },
   methods: {
   }

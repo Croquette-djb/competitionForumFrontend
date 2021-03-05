@@ -3,12 +3,12 @@
     <div class="container">
       <div class="tt-topic-list">
         <div class="tt-list-header">
-          <div class="tt-col-topic">Topic</div>
-          <div class="tt-col-category">Category</div>
-          <div class="tt-col-value hide-mobile">Likes</div>
-          <div class="tt-col-value hide-mobile">Replies</div>
-          <div class="tt-col-value hide-mobile">Views</div>
-          <div class="tt-col-value">Activity</div>
+          <div class="tt-col-topic">帖子</div>
+          <div class="tt-col-category">标签</div>
+          <div class="tt-col-value hide-mobile">喜欢</div>
+          <div class="tt-col-value hide-mobile">评论</div>
+          <div class="tt-col-value hide-mobile">浏览数</div>
+          <div class="tt-col-value"></div>
         </div>
         <!-- <div class="tt-topic-alert tt-alert-default" role="alert">
           <a href="#" target="_blank">4 new posts</a> are added recently, click here to load them.
