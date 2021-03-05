@@ -6,13 +6,14 @@
     </div> -->
     <Navigator />
     <router-view/>
-    <a href="javascript:void(0)" class="tt-btn-create-topic" @click="onCreateBtnClick">
+    <!-- <a href="javascript:void(0)" class="tt-btn-create-topic" @click="onCreateBtnClick"> -->
+    <router-link to="/create" class="tt-btn-create-topic" active-class="hide">
       <span class="tt-icon">
         <svg>
           <use xlink:href="#icon-create_new"></use>
         </svg>
       </span>
-    </a>
+    </router-link>
   </div>
 </template>
 
@@ -29,12 +30,12 @@ export default {
     };
   },
   methods: {
-    onCreateBtnClick() {
-
-    },
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.tt-btn-create-topic.hide {
+  display: none;
+}
 </style>
