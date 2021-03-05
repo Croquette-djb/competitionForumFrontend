@@ -19,7 +19,7 @@
         >
           <div class="tt-col-avatar">
             <svg class="tt-icon">
-              <use xlink:href="#icon-ava-k"></use>
+              <use :xlink:href="`#icon-ava-${item.author.avatar}`"></use>
             </svg>
           </div>
           <div class="tt-col-description">
@@ -57,7 +57,7 @@
             <span class="tt-badge">--</span>
           </div>
           <div class="tt-col-value hide-mobile">{{ item.likes }}</div>
-          <div class="tt-col-value tt-color-select hide-mobile">{{ item.replies }}</div>
+          <div class="tt-col-value tt-color-select hide-mobile">{{ item.comments }}</div>
           <div class="tt-col-value hide-mobile">{{ item.views }}</div>
           <div class="tt-col-value hide-mobile">{{ item.activity }}</div>
         </div>
@@ -99,38 +99,20 @@ export default {
   components: {},
   data: () =>{
     return {
-      postList: [
-        {
-          id: 135,
-          title: '测试帖子',
-          author: {  },
-          likes: 199,
-          replies: 58,
-          views: 1000,
-          activity: '1h',
-        },
-        {
-          id: 135,
-          title: '测试帖子',
-          author: {  },
-          likes: 199,
-          replies: 58,
-          views: 1000,
-          activity: '1h',
-        },
-        {
-          id: 135,
-          title: '测试帖子',
-          author: {  },
-          likes: 199,
-          replies: 58,
-          views: 1000,
-          activity: '1h',
-        },
-      ],
+      postList: [],
     };
   },
+  mounted() {
+    this.getPosts();
+  },
   methods: {
+    getPosts() {
+      this.$axios.get('/api/posts').then(res => {
+        this.postList = res.data;
+      }).catch(e => {
+        console.error(e);
+      });
+    }
   }
 };
 </script>

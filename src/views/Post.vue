@@ -7,16 +7,14 @@
             <div class="tt-item-header">
               <div class="tt-item-info info-top">
                 <div class="tt-avatar-icon">
-                  <i class="tt-icon"
-                    ><svg><use xlink:href="#icon-ava-d"></use></svg
-                  ></i>
+                  <i class="tt-icon"><svg><use :xlink:href="`#icon-ava-${author.avatar}`"></use></svg></i>
                 </div>
                 <div class="tt-avatar-title">
                   <a href="#">{{ author.nickname }}</a>
                 </div>
                 <a href="#" class="tt-info-time">
                   <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>
-                  {{ post.postTime }}
+                  {{ post.time }}
                 </a>
               </div>
               <h3 class="tt-item-title">
@@ -59,13 +57,13 @@
         <h1 class="tt-title-border tt-offset-top-30">评论</h1>
         <div
           class="tt-item"
-          v-for="(item, index) in comments" :key="index"
+          v-for="(item, index) in commentList" :key="index"
         >
           <div class="tt-single-topic">
             <div class="tt-item-header pt-noborder">
               <div class="tt-item-info info-top">
                 <div class="tt-avatar-icon">
-                  <i class="tt-icon"><svg><use xlink:href="#icon-ava-f"></use></svg></i>
+                  <i class="tt-icon"><svg><use :xlink:href="`#icon-ava-${item.author.avatar}`"></use></svg></i>
                 </div>
                 <div class="tt-avatar-title">
                   <a href="#">{{ item.author.nickname }}</a>
@@ -78,7 +76,7 @@
             </div>
             <div class="tt-item-description">
               <p>{{ item.text }}</p>
-              <div class="row tt-offset-37">
+              <!-- <div class="row tt-offset-37">
                 <div class="col-lg-10">
                   <div class="tt-gallery-layout">
                     <div class="tt-item">
@@ -90,7 +88,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="tt-item-info info-bottom">
               <a href="#" class="tt-icon-btn">
@@ -254,28 +252,26 @@ export default {
   data: () => {
     return {
       baseUrl: process.env.BASE_URL,
-      author: {
-        nickname: 'ohhhhhhh',
-      },
-      post: {
-        title: '测试帖子',
-        postTime: '5 Mar,2021',
-        text: '内容内容内容',
-        likes: 990,
-        dislikes: 23,
-        views: 1245,
-      },
-      comments: [
-        {
-          author: {
-            nickname: 'bill',
-          },
-          time: '5 Mar,2021',
-          text: 'testtesttest',
-          likes: 100,
-          dislikes: 43,
-        }
-      ]
+      post: {},
+      author: {},
+      commentList: [],
+    }
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      this.$axios.get(`/api/post/${this.$route.params.id}`).then(res => {
+        this.post = res.data;
+        this.author = this.post.author || {};
+        if (JSON.stringify(this.author) === '{}') return;
+        this.$axios.get(`/api/comments`).then(res => {
+          this.commentList = res.data;
+        });
+      }).catch(e => {
+        console.error(e);
+      });
     }
   }
 };
