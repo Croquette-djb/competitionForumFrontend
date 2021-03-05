@@ -1,10 +1,3 @@
-/**
- * custom init
- */
-(function() {
-  $('#svg-sprite').load('./sprite.html');
-})();
-
 /*
     Init Avatar Mobile Aside
 */

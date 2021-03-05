@@ -28,23 +28,29 @@
             <!-- /toggle mobile menu -->
             <!-- logo -->
             <div class="tt-logo">
-              <a href="index.html"><img src="../../assets/logo.png" alt="" /></a>
+              <router-link to="/"><img src="../../assets/logo.png" alt="" /></router-link>
             </div>
             <!-- /logo -->
             <!-- desctop menu -->
             <div class="tt-desktop-menu">
               <nav>
                 <ul>
+                  <!-- <li>
+                    <router-link to="/categories" active-class="active"><span>Categories</span></router-link>
                   <li>
-                    <router-link to="/categories" tag="a" active-class="active"><span>Categories</span></router-link>
-                  <li>
-                    <router-link to="/tabs" tag="a" active-class="active"><span>Trending</span></router-link>
+                    <router-link to="/tabs" active-class="active"><span>Trending</span></router-link>
                   </li>
                   <li>
-                    <router-link to="/new" tag="a" active-class="active"><span>New</span></router-link>
+                    <router-link to="/new" active-class="active"><span>New</span></router-link>
                   </li>
                   <li>
-                    <router-link to="/pages" tag="a" active-class="active"><span>Pages</span></router-link>
+                    <router-link to="/pages" active-class="active"><span>Pages</span></router-link>
+                  </li> -->
+                  <li>
+                    <router-link to="/" active-class="active" exact><span>首页</span></router-link>
+                  </li>
+                  <li>
+                    <router-link to="/about" active-class="active" exact><span>关于</span></router-link>
                   </li>
                 </ul>
               </nav>

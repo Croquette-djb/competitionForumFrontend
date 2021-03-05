@@ -6,6 +6,13 @@
     </div> -->
     <Navigator />
     <router-view/>
+    <a href="javascript:void(0)" class="tt-btn-create-topic" @click="onCreateBtnClick">
+      <span class="tt-icon">
+        <svg>
+          <use xlink:href="#icon-create_new"></use>
+        </svg>
+      </span>
+    </a>
   </div>
 </template>
 
@@ -15,6 +22,16 @@ import Navigator from '@/components/Navigator/Navigator.vue';
 export default {
   components: {
     Navigator,
+  },
+  data: () => {
+    return {
+
+    };
+  },
+  methods: {
+    onCreateBtnClick() {
+
+    },
   }
 }
 </script>

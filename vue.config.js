@@ -4,9 +4,11 @@
  * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
+  publicPath: '/',
   configureWebpack: {
     externals: {
       jQuery: 'jQuery',
+      bootstrap: 'bootstrap',
     }
   }
 }

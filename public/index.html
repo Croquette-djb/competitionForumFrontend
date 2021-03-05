@@ -15,7 +15,12 @@
     <!-- built files will be auto injected -->
     <div id="svg-sprite"></div>
   </body>
-  <script src="external/jquery.min.js"></script>
-  <script src="external/perfect-scrollbar.min.js"></script>
-  <script src="js/init.js"></script>
+  <script src="<%= BASE_URL %>external/jquery.min.js"></script>
+  <script src="<%= BASE_URL %>external/bootstrap.min.js"></script>
+  <script src="<%= BASE_URL %>external/jquery.magnific-popup.min.js"></script>
+  <script src="<%= BASE_URL %>external/perfect-scrollbar.min.js"></script>
+  <script src="<%= BASE_URL %>js/init.js"></script>
+  <script>
+    $('#svg-sprite').load('<%= BASE_URL %>sprite.html')
+  </script>
 </html>
