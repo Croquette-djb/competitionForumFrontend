@@ -14,6 +14,7 @@
             <div class="form-group">
               <label for="loginUserName">用户名</label>
               <input
+                v-model="loginUserName"
                 type="text"
                 name="name"
                 class="form-control"
@@ -24,6 +25,7 @@
             <div class="form-group">
               <label for="loginUserPassword">密码</label>
               <input
+                v-model="loginPassword"
                 type="password"
                 name="name"
                 class="form-control"
@@ -53,7 +55,7 @@
               </div>
             </div>
             <div class="form-group">
-              <a href="#" class="btn btn-secondary btn-block">登录</a>
+              <a class="btn btn-secondary btn-block" @click="loginMethod">登录</a>
             </div>
             <p>
               还没有账号？
@@ -68,9 +70,39 @@
 
 <script>
 export default {
+  data(){
+    return {
+      loginUserName:'',
+      loginPassword:''
+    }
+  },
+  methods: {
+    loginMethod:function () {
+      if(this.loginUserName!==''&&this.loginPassword!=='') {
+        this.$axios.post('http://localhost:8081/userLogin', {
+          userName: this.loginUserName,
+          password: this.loginPassword,
+        })
+                .then((response)=> {
+                  if(response.data.success==true) {
+                    console.log(this.$store.state)
+                    console.log(response.data)
+                    this.$store.state.userId=response.data.data.user.userId
+                    this.$store.state.userName=response.data.data.user.userName
+                    this.$store.state.nickName=response.data.data.nickName
+                    console.log(this.$store.state.userId)
+                    this.$router.push('/home');
+                  }
+                })
+                .catch((error)=> {
+                  console.log(error);
+                });
+      }
+      else alert('有未填信息')
 
+    }
+  }
 };
 </script>
-
 <style>
 </style>
