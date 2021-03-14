@@ -6,9 +6,7 @@
           <router-link to="/" class="tt-block-title">
             <img src="../../assets/logo.png" alt="" />
             <div class="tt-title">欢迎嗷</div>
-            <div class="tt-description">
-              登录火速冲了
-            </div>
+            <div class="tt-description">登录火速冲了</div>
           </router-link>
           <form class="form-default">
             <div class="form-group">
@@ -70,38 +68,35 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      loginUserName:'',
-      loginPassword:''
-    }
+      loginUserName: "",
+      loginPassword: "",
+    };
   },
   methods: {
-    loginMethod:function () {
-      if(this.loginUserName!==''&&this.loginPassword!=='') {
-        this.$axios.post('http://localhost:8081/userLogin', {
-          userName: this.loginUserName,
-          password: this.loginPassword,
-        })
-                .then((response)=> {
-                  if(response.data.success==true) {
-                    console.log(this.$store.state)
-                    console.log(response.data)
-                    this.$store.state.userId=response.data.data.user.userId
-                    this.$store.state.userName=response.data.data.user.userName
-                    this.$store.state.nickName=response.data.data.nickName
-                    console.log(this.$store.state.userId)
-                    this.$router.push('/home');
-                  }
-                })
-                .catch((error)=> {
-                  console.log(error);
-                });
-      }
-      else alert('有未填信息')
-
-    }
-  }
+    loginMethod: function () {
+      if (this.loginUserName !== "" && this.loginPassword !== "") {
+        this.$axios
+          .post("http://localhost:8081/userLogin", {
+            userName: this.loginUserName,
+            password: this.loginPassword,
+          }).then((response) => {
+            if (response.data.success == true) {
+              console.log(this.$store.state);
+              console.log(response.data);
+              this.$store.state.userId = response.data.data.user.userId;
+              this.$store.state.userName = response.data.data.user.userName;
+              this.$store.state.nickName = response.data.data.nickName;
+              console.log(this.$store.state.userId);
+              this.$router.push("/home");
+            }
+          }).catch((error) => {
+            console.log(error);
+          });
+      } else alert("有未填信息");
+    },
+  },
 };
 </script>
 <style>
