@@ -78,7 +78,7 @@ export default {
     loginMethod: function () {
       if (this.loginUserName !== "" && this.loginPassword !== "") {
         this.$axios
-          .post("http://localhost:8081/userLogin", {
+          .post("/userLogin", {
             userName: this.loginUserName,
             password: this.loginPassword,
           }).then((response) => {

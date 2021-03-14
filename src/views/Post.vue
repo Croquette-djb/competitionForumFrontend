@@ -76,19 +76,6 @@
             </div>
             <div class="tt-item-description">
               <p>{{ item.text }}</p>
-              <!-- <div class="row tt-offset-37">
-                <div class="col-lg-10">
-                  <div class="tt-gallery-layout">
-                    <div class="tt-item">
-                      <a
-                        :href="`${baseUrl}images/single-topic-img05.jpg`"
-                        class="tt-gallery-obj"
-                      ><img :src="`${baseUrl}images/single-topic-img05.jpg`" alt=""
-                      /></a>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
             <div class="tt-item-info info-bottom">
               <a href="#" class="tt-icon-btn">
@@ -251,7 +238,6 @@ export default {
   name: 'Post',
   data: () => {
     return {
-      baseUrl: process.env.BASE_URL,
       post: {},
       author: {},
       commentList: [],
