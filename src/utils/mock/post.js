@@ -31,5 +31,8 @@ export default {
       if (post.id.toString() == id) res = post;
     });
     return res;
+  },
+  'post|/api/post': (option) => {
+    return {};
   }
 }

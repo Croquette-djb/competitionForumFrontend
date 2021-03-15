@@ -52,6 +52,16 @@ export default {
       if (this.postTitle === '') { alert('标题不能为空'); return; }
       if (this.postContent === '') { alert('内容不能为空'); return; }
       if (!this.$store.state.isAuthorized) { alert('请先登录'); return; }
+      this.$axios.post('/api/post', {
+        userId: this.$store.state.userInfo.userId,
+        title: this.postTitle,
+        content: this.postContent,
+      }).then(res => {
+        console.log('res: ', res);
+        this.$router.push('/');
+      }).catch(e => {
+        console.error(e);
+      })
     }
   }
 };
