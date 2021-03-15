@@ -3,7 +3,6 @@ import axios from 'axios';
 const devAPIUrl = 'http://localhost:8081';
 const prodAPIUrl = '';
 const mockAPIUrl = '';
-console.log(process.env)
 const baseAPIUrl = 
   Object.is(process.env.NODE_ENV, 'production') ? prodAPIUrl :
   Object.is(process.env.VUE_APP_IS_MOCK, 'true') ? mockAPIUrl : devAPIUrl;
