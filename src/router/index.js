@@ -28,6 +28,7 @@ const routes = [
     path: '/create',
     name: 'Create',
     component: Create,
+    meta: { requireAuth: true }
   }, {
     path: '/login',
     name: 'Login',
@@ -43,10 +44,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
-
-router.beforeEach((to, from, next) => {
-  next();
 })
 
 export default router

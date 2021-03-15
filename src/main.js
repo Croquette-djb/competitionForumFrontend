@@ -14,4 +14,15 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireAuth)) {
+    if (!store.state.isAuthorized) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      });
+    } else next();
+  } else next();
+});

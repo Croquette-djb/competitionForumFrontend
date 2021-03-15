@@ -89,7 +89,8 @@ export default {
           }).then((response) => {
             if (response.data.success == true) {
               this.$store.commit('userLogin', response.data.data.user);
-              this.$router.push("/");
+              if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect);
+              else this.$router.push("/")
             }
           }).catch((error) => {
             console.log(error);
