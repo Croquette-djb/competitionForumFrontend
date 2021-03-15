@@ -21,144 +21,11 @@
               possible.
             </div>
           </div>
-          <div class="pt-editor">
-            <h6 class="pt-title">帖子内容</h6>
-            <div class="pt-row">
-              <div class="col-left">
-                <ul class="pt-edit-btn">
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-quote"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-bold"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-italic"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-share_topic"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-blockquote"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-performatted"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li class="hr"></li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-upload_files"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-bullet_list"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-heading"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-horizontal_line"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-emoticon"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-settings"></use>
-                      </svg>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn-icon">
-                      <svg class="tt-icon">
-                        <use xlink:href="#icon-color_picker"></use>
-                      </svg>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="form-group">
-              <textarea
-                name="message"
-                class="form-control"
-                rows="5"
-                placeholder="Lets get started"
-              ></textarea>
-            </div>
-            <!-- <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="inputTopicTitle">Category</label>
-                  <select class="form-control">
-                    <option value="Select">Select</option>
-                    <option value="Value 01">Value 01</option>
-                    <option value="Value 02">Value 02</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="form-group">
-                  <label for="inputTopicTags">Tags</label>
-                  <input
-                    type="text"
-                    name="name"
-                    class="form-control"
-                    id="inputTopicTags"
-                    placeholder="Use comma to separate tags"
-                  />
-                </div>
-              </div>
-            </div> -->
-            <div class="row">
-              <div class="col-auto ml-md-auto">
-                <a href="#" class="btn btn-secondary btn-width-lg">发布</a>
-              </div>
-            </div>
-          </div>
+          <Editor
+            title="帖子内容"
+            submitText="发布"
+            @submit="handleEditorSubmit"
+          />
         </form>
       </div>
     </div>
@@ -166,8 +33,13 @@
 </template>
 
 <script>
+import Editor from '@/components/Editor/Editor.vue'
+
 export default {
-  
+  components: {
+    Editor
+  },
+
 };
 </script>
 
