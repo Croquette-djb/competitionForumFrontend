@@ -1,24 +1,36 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+
+function getDefaultUserInfo() {
+  return {
+    userId: null,
+    userName: '',
+    nickname: '',
+    avatar: '',
+  };
+}
 
 export default new Vuex.Store({
   state: {
     isAuthorized: false,
-    userInfo: {
-      userId: null,
-      userName: '',
-      nickname: ''
-    }
+    userInfo: getDefaultUserInfo(),
   },
   mutations: {
-    userLogin(state, { user }) {
+    userLogin(state, { userId, userName, nickname, avatar }) {
       state.isAuthorized = true;
-      state.userInfo = user;
+      state.userInfo = {
+        ...state.userInfo,
+        userId,
+        userName,
+        nickname,
+        avatar,
+      };
     },
     userLogout(state) {
       state.isAuthorized = false;
+      state.userInfo = getDefaultUserInfo();
     }
   },
   actions: {

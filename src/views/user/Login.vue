@@ -88,7 +88,7 @@ export default {
             password: this.loginPassword,
           }).then((response) => {
             if (response.data.success == true) {
-              this.$store.commit('userLogin', response.data.data);
+              this.$store.commit('userLogin', response.data.data.user);
               this.$router.push("/");
             }
           }).catch((error) => {

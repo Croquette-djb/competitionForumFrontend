@@ -13,5 +13,19 @@ export default {
         }
       }
     };
+  },
+  'get|/api/user': (option) => {
+    return {
+      success: true,
+      data: {
+        isLogin: true,
+        userInfo: {
+          userId: 2315,
+          userName: '',
+          nickname: 'testtest',
+          avatar: 'c',
+        }
+      }
+    }
   }
 }

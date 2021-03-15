@@ -39,7 +39,19 @@ export default {
       return !hideNavRouteName.includes(this.$route.name);
     }
   },
+  mounted() {
+    this.getStatus();
+  },
   methods: {
+    getStatus() {
+      this.$axios.get('/api/user').then(res => {
+        if (res.data.success === true) {
+          this.$store.commit('userLogin', res.data.data.userInfo);
+        }
+      }).catch(e => {
+        console.error(e)
+      })
+    }
   }
 }
 </script>

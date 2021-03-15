@@ -91,7 +91,7 @@
             </div>
             <!-- /tt-search -->
           </div>
-          <div class="col-auto ml-auto">
+          <div class="col-auto ml-auto" @mouseover="onUserInfoHover" @mouseleave="onUserInfoLeave">
             <div v-if="!isAuthorized" class="tt-account-btn">
               <router-link to="/login" class="btn btn-primary">登录</router-link>
               <router-link to="/signup" class="btn btn-secondary">注册</router-link>
@@ -104,6 +104,9 @@
                 {{ userInfo.nickname }}
               </div>
             </div>
+            <div v-if="isAuthorized" v-show="isPanelVisible" class="tt-user-info-panel">
+              <a href="javascript:void(0);" @click="onLogoutClick">退出登录</a>
+            </div>
           </div>
         </div>
       </div>
@@ -114,6 +117,12 @@
 <script>
 export default {
   name: "Navigator",
+  data() {
+    return {
+      isPanelVisible: false,
+      panelVisibleTimer: null,
+    }
+  },
   computed: {
     isAuthorized() {
       return this.$store.state.isAuthorized;
@@ -121,15 +130,53 @@ export default {
     userInfo() {
       return this.$store.state.userInfo;
     },
+  },
+  methods: {
+    onLogoutClick() {
+      this.$store.commit('userLogout');
+    },
+    onUserInfoHover() {
+      clearTimeout(this.panelVisibleTimer);
+      this.isPanelVisible = true;
+    },
+    onUserInfoLeave() {
+      var _this = this;
+      clearTimeout(this.panelVisibleTimer);
+      this.panelVisibleTimer = setTimeout(function () {
+        _this.isPanelVisible = false;
+      }, 100);
+    }
   }
 };
 </script>
 
 <style lang="scss">
 .tt-user-info {
+  cursor: pointer;
+
   &-nickname {
     line-height: 40px;
     margin-left: 14px !important;
+  }
+  &:hover &-nickname {
+    color: #2172cd;
+  }
+  &-panel {
+    position: absolute;
+    top: 70px;
+    padding: 12px;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+
+    a {
+      color: black;
+    }
   }
 }
 </style>
