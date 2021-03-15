@@ -100,6 +100,7 @@
           title="帖子内容"
           submitText="评论"
           wrapClassName="form-default"
+          v-model="commentContent"
         />
       </div>
     </div>
@@ -119,6 +120,7 @@ export default {
       post: {},
       author: {},
       commentList: [],
+      commentContent: '',
     }
   },
   mounted() {

@@ -20,7 +20,8 @@
         class="form-control"
         rows="5"
         :placeholder="placeholder"
-        :value="content"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
       ></textarea>
     </div>
     <div class="row">
@@ -45,6 +46,7 @@ export default {
       type: String,
       default: 'text',
     },
+    value: String,
     toolbar: {
       type: Array,
       default() {
@@ -66,7 +68,6 @@ export default {
   },
   data() {
     return {
-      content: '',
     }
   },
   methods: {

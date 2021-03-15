@@ -12,7 +12,8 @@
                 name="name"
                 class="form-control"
                 id="inputTopicTitle"
-                placeholder="Subject of your topic"
+                placeholder="输入标题"
+                v-model="postTitle"
               />
               <span class="tt-value-input">99</span>
             </div>
@@ -25,6 +26,7 @@
             title="帖子内容"
             submitText="发布"
             @submit="handleEditorSubmit"
+            v-model="postContent"
           />
         </form>
       </div>
@@ -37,9 +39,21 @@ import Editor from '@/components/Editor/Editor.vue'
 
 export default {
   components: {
-    Editor
+    Editor,
   },
-
+  data() {
+    return {
+      postTitle: '',
+      postContent: '',
+    }
+  },
+  methods: {
+    handleEditorSubmit() {
+      if (this.postTitle === '') { alert('标题不能为空'); return; }
+      if (this.postContent === '') { alert('内容不能为空'); return; }
+      if (!this.$store.state.isAuthorized) { alert('请先登录'); return; }
+    }
+  }
 };
 </script>
 
