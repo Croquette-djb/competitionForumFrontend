@@ -92,9 +92,17 @@
             <!-- /tt-search -->
           </div>
           <div class="col-auto ml-auto">
-            <div class="tt-account-btn">
+            <div v-if="!isAuthorized" class="tt-account-btn">
               <router-link to="/login" class="btn btn-primary">登录</router-link>
               <router-link to="/signup" class="btn btn-secondary">注册</router-link>
+            </div>
+            <div v-else class="tt-user-info d-flex justify-content-center">
+              <div class="tt-avatar-icon tt-size-md">
+                <i class="tt-icon"><svg><use :xlink:href="`#icon-ava-${userInfo.avatar}`"></use></svg></i>
+              </div>
+              <div class="tt-user-info-nickname">
+                {{ userInfo.nickname }}
+              </div>
             </div>
           </div>
         </div>
@@ -106,8 +114,22 @@
 <script>
 export default {
   name: "Navigator",
+  computed: {
+    isAuthorized() {
+      return this.$store.state.isAuthorized;
+    },
+    userInfo() {
+      return this.$store.state.userInfo;
+    },
+  }
 };
 </script>
 
 <style lang="scss">
+.tt-user-info {
+  &-nickname {
+    line-height: 40px;
+    margin-left: 14px !important;
+  }
+}
 </style>

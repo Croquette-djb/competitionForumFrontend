@@ -74,22 +74,22 @@ export default {
       loginPassword: "",
     };
   },
+  computed: {
+    isAuthorized() {
+      return this.$store.state.isAuthorized;
+    }
+  },
   methods: {
     loginMethod: function () {
-      if (this.loginUserName !== "" && this.loginPassword !== "") {
+      if (this.loginUserName !== "" && this.loginPassword !== "" && !this.isAuthorized) {
         this.$axios
-          .post("/userLogin", {
+          .post("/api/login", {
             userName: this.loginUserName,
             password: this.loginPassword,
           }).then((response) => {
             if (response.data.success == true) {
-              console.log(this.$store.state);
-              console.log(response.data);
-              this.$store.state.userId = response.data.data.user.userId;
-              this.$store.state.userName = response.data.data.user.userName;
-              this.$store.state.nickName = response.data.data.nickName;
-              console.log(this.$store.state.userId);
-              this.$router.push("/home");
+              this.$store.commit('userLogin', response.data.data);
+              this.$router.push("/");
             }
           }).catch((error) => {
             console.log(error);
