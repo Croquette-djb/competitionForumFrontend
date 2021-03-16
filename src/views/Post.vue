@@ -101,6 +101,7 @@
           submitText="评论"
           wrapClassName="form-default"
           v-model="commentContent"
+          @submit="handleEditorSubmit"
         />
       </div>
     </div>
@@ -123,21 +124,54 @@ export default {
       commentContent: '',
     }
   },
+  computed: {
+    postId() {
+      return this.$route.params.id;
+    }
+  },
   mounted() {
-    this.getData();
+    this.getPostData();
   },
   methods: {
-    getData() {
-      this.$axios.get(`/api/post/${this.$route.params.id}`).then(res => {
+    getPostData() {
+      this.$axios.get(`/api/post/${this.postId}`).then(res => {
         this.post = res.data;
         this.author = this.post.author || {};
         if (JSON.stringify(this.author) === '{}') return;
-        this.$axios.get(`/api/comments`).then(res => {
-          this.commentList = res.data;
-        });
+        if (this.postId === this.post.id) this.getCommentList();
       }).catch(e => {
         console.error(e);
       });
+    },
+    getCommentList() {
+      this.commentList = [];
+      this.$axios
+        .get(`/api/comments`, { params: { postId: this.post.id } })
+        .then(res => {
+          this.commentList = res.data;
+          window.scrollTo(0, 0);
+        }).catch(e => {
+          console.error(e);
+        });
+    },
+    handleEditorSubmit() {
+      if (this.commentContent === '') { alert('内容不能为空'); return; }
+      if (!this.$store.state.isAuthorized) { alert('请先登录'); return; }
+      this.$axios.post('/api/comment', {
+        userId: this.$store.state.userInfo.userId,
+        postId: this.post.id,
+        content: this.commentContent,
+      }).then(res => {
+        if (res.data.data.success === true) {
+          this.clearEditor();
+          this.getCommentList();
+        }
+      }).catch(e => {
+        console.error(e);
+      });
+    },
+    clearEditor() {
+      this.commentContent = '';
     }
   }
 };

@@ -19,4 +19,23 @@ export default {
     if (commentList.length == 0) commentList = Mock.mock(dataTemplate).comments;
     return commentList;
   },
+  'post|/api/comment': (option) => {
+    const payload = JSON.parse(option.body);
+    var comment = {
+      author: {
+        nickname: Mock.mock('@cword(2, 10)'),
+        avatar:  Mock.mock('@character("lower")'),
+      },
+      text: payload.content,
+      likes: 0,
+      dislikes: 0,
+      time: Mock.mock('@now()'),
+    };
+    commentList.push(comment);
+    return {
+      data: {
+        success: true,
+      }
+    }
+  }
 };
