@@ -96,7 +96,7 @@
         </h4>
       </div>
       <div class="tt-wrapper-inner">
-        <Editor
+        <Editor @submit="submitComment"
           title="帖子内容"
           submitText="评论"
           wrapClassName="form-default"
@@ -127,6 +127,9 @@ export default {
     this.getData();
   },
   methods: {
+    submitComment(){
+
+    },
     getData() {
       this.$axios.get(`/api/post/${this.$route.params.id}`).then(res => {
         this.post = res.data.data.post;
