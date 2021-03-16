@@ -25,12 +25,25 @@ export default {
     return postList;
   },
   'get|/api/post/\\d': (option) => {
-    var id = typeof option.url === 'string' && option.url.replace('/api/post/', '');
-    let res = {};
-    postList.forEach((post) => {
-      if (post.id.toString() == id) res = post;
-    });
-    return res;
+    const url = new URL('http://localhost' + option.url);
+    const id = url.pathname.replace('/api/post/', '');
+    const paramsMap = new Map(url.searchParams.entries());
+
+    if (paramsMap.size > 0) {
+      let action = paramsMap.get('action')
+      return {
+        data: {
+          success: true,
+          message: action ? action : '' 
+        }
+      }
+    } else {
+      let res = {};
+      postList.forEach((post) => {
+        if (post.id.toString() == id) res = post;
+      });
+      return res;
+    }
   },
   'post|/api/post': (option) => {
     return {};

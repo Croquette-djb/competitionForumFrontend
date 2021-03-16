@@ -38,13 +38,13 @@
               {{ post.text }}
             </div>
             <div class="tt-item-info info-bottom">
-              <a href="#" class="tt-icon-btn">
+              <a href="javascript:void(0);" class="tt-icon-btn" @click="handlePostLike">
                 <i class="tt-icon"
                   ><svg><use xlink:href="#icon-like"></use></svg
                 ></i>
                 <span class="tt-text">{{ post.likes }}</span>
               </a>
-              <a href="#" class="tt-icon-btn">
+              <a href="javascript:void(0);" class="tt-icon-btn" @click="handlePostDislike">
                 <i class="tt-icon"
                   ><svg><use xlink:href="#icon-dislike"></use></svg
                 ></i>
@@ -78,11 +78,11 @@
               <p>{{ item.text }}</p>
             </div>
             <div class="tt-item-info info-bottom">
-              <a href="#" class="tt-icon-btn">
+              <a href="javascript:void(0);" class="tt-icon-btn" @click="handleCommentLike(item.id)">
                 <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                 <span class="tt-text">{{ item.likes }}</span>
               </a>
-              <a href="#" class="tt-icon-btn">
+              <a href="javascript:void(0);" class="tt-icon-btn" @click="handleCommentDislike(item.id)">
                 <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                 <span class="tt-text">{{ item.dislikes }}</span>
               </a>
@@ -122,6 +122,7 @@ export default {
       author: {},
       commentList: [],
       commentContent: '',
+      actionLock: false,
     }
   },
   computed: {
@@ -169,6 +170,36 @@ export default {
       }).catch(e => {
         console.error(e);
       });
+    },
+    handlePostLike() {
+      this.actionHandler('like', 'post', { id: this.post.id });
+    },
+    handlePostDislike() {
+      this.actionHandler('dislike', 'post', { id: this.post.id });
+    },
+    handleCommentLike(commentId) {
+      this.actionHandler('like', 'comment', { id: commentId });
+    },
+    handleCommentDislike(commentId) {
+      this.actionHandler('dislike', 'comment', { id: commentId });
+    },
+    actionHandler(action, target, payload) {
+      if (this.actionLock) return;
+      let _this = this;
+      const allowedAction = ['like', 'dislike'];
+      if (allowedAction.includes(action)) {
+        this.actionLock = true;
+        this.$axios.get(`/api/${target}${payload.id ? `/${payload.id}` : ''}`, {
+          params: { action }
+        }).then(res => {
+          if (res.data.data.success === true) console.log(res.data.data)
+          else alert('error')
+        }).catch(e => {
+          console.error(e);
+        }).finally(() => {
+          _this.actionLock = false;
+        })
+      }
     },
     clearEditor() {
       this.commentContent = '';
