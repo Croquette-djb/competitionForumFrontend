@@ -70,7 +70,7 @@
                 </div>
                 <a href="#" class="tt-info-time">
                   <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>
-                  {{ item.time }}
+                  {{ item.createTime }}
                 </a>
               </div>
             </div>
@@ -129,11 +129,15 @@ export default {
   methods: {
     getData() {
       this.$axios.get(`/api/post/${this.$route.params.id}`).then(res => {
-        this.post = res.data;
+        this.post = res.data.data.post;
         this.author = this.post.author || {};
         if (JSON.stringify(this.author) === '{}') return;
-        this.$axios.get(`/api/comments`).then(res => {
-          this.commentList = res.data;
+        this.$axios.get(`/api/comments`,{
+          params:{
+            postId: this.post.postId
+          }
+        }).then(res => {
+          this.commentList = res.data.data.commentList;
         });
       }).catch(e => {
         console.error(e);

@@ -24,7 +24,7 @@
           </div>
           <div class="tt-col-description">
             <h6 class="tt-title">
-              <router-link :to="{ name: 'Post', params: { id: item.id }}">
+              <router-link :to="{ name: 'Post', params: { id: item.postId }}">
                 <!-- <svg class="tt-icon">
                   <use xlink:href="#icon-pinned"></use>
                 </svg>
@@ -107,8 +107,9 @@ export default {
   },
   methods: {
     getPosts() {
-      this.$axios.get('/api/posts').then(res => {
-        this.postList = res.data;
+      this.$axios.get('/post/getAllPosts').then(res => {
+        console.log(res);
+        this.postList = res.data.data.postList;
       }).catch(e => {
         console.error(e);
       });
