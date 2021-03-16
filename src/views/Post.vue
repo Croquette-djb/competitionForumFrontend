@@ -70,7 +70,7 @@
                 </div>
                 <a href="#" class="tt-info-time">
                   <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>
-                  {{ item.createTime }}
+                  {{ item.time }}
                 </a>
               </div>
             </div>
@@ -96,7 +96,7 @@
         </h4>
       </div>
       <div class="tt-wrapper-inner">
-        <Editor @submit="submitComment"
+        <Editor
           title="帖子内容"
           submitText="评论"
           wrapClassName="form-default"
@@ -127,20 +127,13 @@ export default {
     this.getData();
   },
   methods: {
-    submitComment(){
-
-    },
     getData() {
       this.$axios.get(`/api/post/${this.$route.params.id}`).then(res => {
-        this.post = res.data.data.post;
+        this.post = res.data;
         this.author = this.post.author || {};
         if (JSON.stringify(this.author) === '{}') return;
-        this.$axios.get(`/api/comments`,{
-          params:{
-            postId: this.post.postId
-          }
-        }).then(res => {
-          this.commentList = res.data.data.commentList;
+        this.$axios.get(`/api/comments`).then(res => {
+          this.commentList = res.data;
         });
       }).catch(e => {
         console.error(e);
