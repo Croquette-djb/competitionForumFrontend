@@ -7,6 +7,8 @@ const baseAPIUrl =
   Object.is(process.env.NODE_ENV, 'production') ? prodAPIUrl :
   Object.is(process.env.VUE_APP_IS_MOCK, 'true') ? mockAPIUrl : devAPIUrl;
 
+axios.defaults.withCredentials = true;
+
 const ax = axios.create({
   baseURL: baseAPIUrl,
 });
